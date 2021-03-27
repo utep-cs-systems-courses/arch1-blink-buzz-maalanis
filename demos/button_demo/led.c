@@ -10,7 +10,7 @@ void led_init()
 }
 
 void led_update(){
-  if (switch_state_changed) {
+  if (switch_state_changed && switch_state_down) {
     char ledFlags = 0; /* by default, no LEDs on */
     /*
     ledFlags |= switch_state_down ? LED_GREEN : 0;
