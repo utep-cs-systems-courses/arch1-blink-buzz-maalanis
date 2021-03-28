@@ -46,7 +46,7 @@ switch_interrupt_handler()
   void
   do_button1(char p2val)
   {
-    switch_state_down(p2val & SW1) ? 0 : 1;
+    switch_state_down= (p2val & SW1) ? 0 : 1;
     switch_state_changed = 1;
     color^=1;
     led_update();
@@ -54,7 +54,7 @@ switch_interrupt_handler()
   void
   do_button2(char p2val)
   {
-
+    enableWDTInterrupts();
   }
   void
   do_button3(char p2val)
