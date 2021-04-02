@@ -13,10 +13,10 @@ void switch_interrupt_handler();
 
 char do_button1(char p2val);
 char do_button2(char p2val);
-void do_button3(char p2val);
-void do_button3(char p2val);
+char do_button3(char p2val);
+//void do_button3(char p2val);
 void do_button4(char p2val);
 
 extern char switch_state_down, switch_state_changed, color; /* effectively boolean */
-
+extern char blink_mode;
 #endif // included

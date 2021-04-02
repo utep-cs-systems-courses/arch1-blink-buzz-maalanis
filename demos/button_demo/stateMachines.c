@@ -2,10 +2,11 @@
 #include "stateMachines.h"
 #include "buzzer.h"
 #include "switches.h"
+#include "led.h"
 
-extern char power=1;
+char power=1;
 
-char toggle_red()		/* always toggle! */
+char sound_on()		/* always toggle! */
 {
   static char sound = 0;
 
@@ -30,7 +31,7 @@ char toggle_red()		/* always toggle! */
   return 1;			/* always changes an led */
 }
 
-char toggle_green()	/* only toggle green if red is on!  */
+char sound_off()	/* only toggle green if red is on!  */
 {
   /*
   char changed = 0;
@@ -47,12 +48,19 @@ char toggle_green()	/* only toggle green if red is on!  */
 
 void state_advance()		/* alternate between toggling red & green */
 {
+  if(blink_mode==0)
+    {
   if(power)
     {
-      toggle_red();
+      sound_on();
     } else {
-    toggle_green();
+    sound_off();
   }
+    }
+  if(blink_mode==1)
+    {
+      state_advance_flip();
+    }
   
   /*
   char changed = 0;  
@@ -68,6 +76,24 @@ void state_advance()		/* alternate between toggling red & green */
   */
   //toggle_red();
 }
-
+void state_advance_flip()
+{
+  static char led = 0;
+  if (led)
+    {
+      green_on = 1;
+      red_on = 0;
+      color = 1;
+      led = 0;
+    } else {
+    green_on = 0;
+    red_on = 1;
+    led = 1;
+    color = 0;
+  }
+  switch_state_changed = 1;
+  led_changed =1;
+  led_update();
+}
 
 

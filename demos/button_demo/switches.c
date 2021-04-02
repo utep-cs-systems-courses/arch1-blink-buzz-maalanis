@@ -4,7 +4,7 @@
 #include "buzzer.h"
 #include "stateMachines.h"
 char switch_state_down, switch_state_changed; /* effectively boolean */
-
+char blink_mode = 0;
 char color =0;
 
 static char 
@@ -35,6 +35,7 @@ switch_interrupt_handler()
   char p2val = switch_update_interrupt_sense();
   switch_state_down = (p2val & SW1) ? 0 : do_button1(p2val); /* 0 when SW1 is up */
   switch_state_down = (p2val & SW2) ? : do_button2(p2val);
+  switch_state_down = (p2val & SW3) ? : do_button3(p2val);
   switch_state_changed = 1;
   /*if(SW1)
     {
@@ -59,13 +60,16 @@ switch_interrupt_handler()
   do_button2(char p2val)
   {
     power ^= 1;
+    blink_mode =0;
     enableWDTInterrupts();
     return 1;
   }
-  void
+  char
   do_button3(char p2val)
   {
-
+    blink_mode = 1;
+    enableWDTInterrupts();
+    return 1;
   }
   void
   do_button4(char p2val)
