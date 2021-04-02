@@ -3,6 +3,8 @@
 #include "buzzer.h"
 #include "switches.h"
 
+extern char power=1;
+
 char toggle_red()		/* always toggle! */
 {
   static char sound = 0;
@@ -38,12 +40,20 @@ char toggle_green()	/* only toggle green if red is on!  */
   }
   return changed;
   */
+  buzzer_set_period(0);
   return 1;
 }
 
 
 void state_advance()		/* alternate between toggling red & green */
 {
+  if(power)
+    {
+      toggle_red();
+    } else {
+    toggle_green();
+  }
+  
   /*
   char changed = 0;  
 
@@ -56,7 +66,7 @@ void state_advance()		/* alternate between toggling red & green */
   led_changed = changed;
   led_update();
   */
-  toggle_red();
+  //toggle_red();
 }
 
 
