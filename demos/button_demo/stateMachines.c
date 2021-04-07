@@ -3,7 +3,7 @@
 #include "buzzer.h"
 #include "switches.h"
 #include "led.h"
-
+#include "assembly.s"
 char power=1;
 
 char sound_on()		/* always toggle! */
