@@ -3,7 +3,7 @@
 #include "switches.h"
 
 unsigned char red_on = 0, green_on = 0;
-unsigned char led_on = 0;
+unsigned char led_changed = 0;
 
 
 
